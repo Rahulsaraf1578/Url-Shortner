@@ -11,3 +11,4 @@
 /.idea
 /tests/__snapshots__
 /tests/__mocks__
+/backend/.env
