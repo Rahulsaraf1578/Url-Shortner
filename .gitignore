@@ -1,0 +1,13 @@
+/backend/node_modules
+/frontend/node_modules
+/.env
+.DS_Store
+/logs
+*.log
+/coverage
+/build
+/dist
+/.vscode
+/.idea
+/tests/__snapshots__
+/tests/__mocks__
