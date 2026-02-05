@@ -3,10 +3,11 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URI;
 
 let client;
+let db;
 
 async function connectDB() {
   if (!uri) {
-    console.warn('⚠️ MONGO_URI not set. Skipping MongoDB connection (running without DB).');
+    console.warn('⚠️ MONGO_URI not set. Skipping MongoDB connection.');
     return;
   }
 
@@ -20,14 +21,21 @@ async function connectDB() {
     });
 
     await client.connect();
-    console.log("✅ MongoDB connected successfully");
-
-    return client;
+    db = client.db(process.env.DB_NAME);
+    console.log('✅ MongoDB connected successfully');
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error.message);
-    // Do not exit the process — allow the server to run for local development
-    return;
+    console.error('❌ MongoDB connection failed:', error.message);
   }
 }
 
-module.exports = connectDB;
+function getDB() {
+  if (!db) {
+    throw new Error('Database not initialized. Call connectDB first.');
+  }
+  return db;
+}
+
+module.exports = {
+  connectDB,
+  getDB,
+};

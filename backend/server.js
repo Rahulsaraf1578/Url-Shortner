@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const app = require('./app');
-const connectDB = require('./src/config/db.js');
+const {connectDB} = require('./src/config/db.js');
 const { connectRedis } = require('./src/config/redis');
 
 connectDB();
